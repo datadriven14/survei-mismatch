@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Survei Mismatch Pasar Tenaga Kerja Indonesia</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#1a3a5c;--pl:#2d5a8e;--acc:#e8a020;--accl:#f5c15a;--s:#fff;--s2:#f4f6fa;--s3:#eaeff7;--tx:#1a2535;--tx2:#4a5568;--tx3:#8492a6;--bd:#d8e0ee;--ok:#1a7a4a;--er:#c0392b;--r:12px;--rsm:8px;--sh:0 2px 16px rgba(26,58,92,.10);--shl:0 8px 40px rgba(26,58,92,.15);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:linear-gradient(135deg,#f0f4fb,#e8eef8);min-height:100vh;color:var(--tx);line-height:1.6;}
+/* HEADER */
+.hdr{background:var(--primary);color:#fff;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,.05);}
+.hdr::after{content:'';position:absolute;bottom:-40px;left:10%;width:200px;height:200px;border-radius:50%;background:rgba(232,160,32,.12);}
+.hdr-in{max-width:880px;margin:0 auto;padding:44px 24px 36px;position:relative;z-index:1;}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(232,160,32,.18);color:var(--accl);border:1px solid rgba(232,160,32,.35);border-radius:50px;padding:4px 14px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;}
+.badge::before{content:'●';font-size:8px;}
+.hdr h1{font-family:'Playfair Display',serif;font-size:clamp(20px,4vw,32px);font-weight:700;line-height:1.25;margin-bottom:10px;color:#fff;}
+.hdr p{font-size:14.5px;color:rgba(255,255,255,.75);max-width:600px;line-height:1.7;}
+/* PROGRESS */
+.pb-wrap{background:rgba(255,255,255,.12);height:5px;}
+.pb{height:5px;background:linear-gradient(90deg,var(--acc),var(--accl));transition:width .5s cubic-bezier(.4,0,.2,1);width:0%;}
+/* MAIN */
+.wrap{max-width:880px;margin:0 auto;padding:28px 14px 80px;}
+/* CARD */
+.card{background:var(--s);border-radius:18px;box-shadow:var(--sh);padding:32px 36px;margin-bottom:18px;border:1px solid var(--bd);animation:su .3s ease both;}
+@keyframes su{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.sec-lbl{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pl);margin-bottom:16px;}
+.sec-lbl span{display:inline-block;width:24px;height:24px;background:var(--s3);border-radius:50%;text-align:center;line-height:24px;font-size:11px;font-weight:700;color:var(--primary);}
+.card h2{font-size:18px;font-weight:700;color:var(--primary);margin-bottom:6px;}
+.card .sub{font-size:13.5px;color:var(--tx2);margin-bottom:24px;line-height:1.6;}
+/* STEP HEADER */
+.sh{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;padding-bottom:18px;border-bottom:1.5px solid var(--s3);}
+.snum{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--pl));color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0;box-shadow:0 4px 12px rgba(26,58,92,.25);}
+.sht h2{font-size:17px;font-weight:700;color:var(--primary);margin-bottom:3px;}
+.sht p{font-size:13px;color:var(--tx2);line-height:1.5;}
+/* ROLE CARDS */
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;}
+.rc{border:2px solid var(--bd);border-radius:var(--r);padding:26px 20px;cursor:pointer;transition:all .2s;background:var(--s2);text-align:center;position:relative;overflow:hidden;}
+.rc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--primary),var(--pl));opacity:0;transition:opacity .2s;}
+.rc:hover{border-color:var(--pl);transform:translateY(-2px);box-shadow:var(--shl);}
+.rc.sel{border-color:var(--primary);}
+.rc.sel::before{opacity:1;}
+.rc *{position:relative;z-index:1;}
+.ri{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:26px;background:var(--s3);transition:background .2s;}
+.rc.sel .ri{background:rgba(255,255,255,.18);}
+.rc h3{font-size:15px;font-weight:700;color:var(--primary);margin-bottom:5px;transition:color .2s;}
+.rc.sel h3{color:#fff;}
+.rc p{font-size:13px;color:var(--tx2);line-height:1.45;transition:color .2s;}
+.rc.sel p{color:rgba(255,255,255,.8);}
+.rck{position:absolute;top:10px;right:10px;width:20px;height:20px;border-radius:50%;border:2px solid var(--bd);background:var(--s);display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.rc.sel .rck{background:var(--acc);border-color:var(--acc);}
+.rck::after{content:'✓';font-size:11px;font-weight:700;color:#fff;opacity:0;transition:opacity .15s;}
+.rc.sel .rck::after{opacity:1;}
+/* FORM */
+.fg{margin-bottom:20px;}
+.fg label{display:block;font-size:13.5px;font-weight:600;color:var(--tx);margin-bottom:7px;}
+.fg .hint{font-size:11.5px;color:var(--tx3);font-weight:400;margin-left:3px;}
+.fg input[type=text],.fg input[type=number],.fg input[type=email],.fg select,.fg textarea{width:100%;border:1.5px solid var(--bd);border-radius:var(--rsm);padding:10px 13px;font-size:13.5px;font-family:inherit;color:var(--tx);background:var(--s2);transition:border-color .2s,box-shadow .2s;outline:none;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--pl);box-shadow:0 0 0 3px rgba(45,90,142,.10);background:#fff;}
+.fg input.err,.fg select.err,.fg textarea.err{border-color:var(--er)!important;box-shadow:0 0 0 3px rgba(192,57,43,.10)!important;}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+/* RADIO / CHECK */
+.rg,.cg{display:flex;flex-direction:column;gap:7px;}
+.ri-item,.ci-item{display:flex;align-items:center;gap:9px;padding:9px 13px;border:1.5px solid var(--bd);border-radius:var(--rsm);cursor:pointer;transition:all .18s;background:var(--s2);}
+.ri-item:hover,.ci-item:hover{border-color:var(--pl);background:var(--s3);}
+.ri-item input,.ci-item input{accent-color:var(--primary);width:15px;height:15px;flex-shrink:0;}
+.ri-item span,.ci-item span{font-size:13.5px;color:var(--tx);}
+.ri-item.sel,.ci-item.sel{border-color:var(--primary);background:#edf2fb;}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.cgrid3{grid-template-columns:1fr 1fr 1fr;}
+/* DIVIDER */
+.div{display:flex;align-items:center;gap:11px;margin:26px 0 18px;}
+.div .lbl{white-space:nowrap;font-size:11.5px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--primary);background:var(--s3);border-radius:50px;padding:3px 13px;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--bd);}
+/* INFO BOX */
+.ib{background:#edf4ff;border-left:4px solid var(--pl);border-radius:0 var(--rsm) var(--rsm) 0;padding:13px 17px;font-size:13px;color:var(--primary);margin-bottom:20px;line-height:1.6;}
+.ib strong{display:block;margin-bottom:3px;font-size:12.5px;}
+/* LIKERT */
+.ltbl{width:100%;border-collapse:separate;border-spacing:0;border:1.5px solid var(--bd);border-radius:var(--r);overflow:hidden;font-size:13px;}
+.ltbl thead tr{background:var(--primary);color:#fff;}
+.ltbl thead th{padding:9px 6px;text-align:center;font-weight:600;font-size:11.5px;}
+.ltbl thead th:first-child{text-align:left;padding-left:14px;width:58%;}
+.ltbl tbody tr{border-bottom:1px solid var(--bd);transition:background .15s;}
+.ltbl tbody tr:last-child{border-bottom:none;}
+.ltbl tbody tr:nth-child(even){background:var(--s2);}
+.ltbl tbody tr:hover{background:var(--s3);}
+.ltbl td{padding:11px 6px;text-align:center;vertical-align:middle;}
+.ltbl td:first-child{text-align:left;padding-left:14px;font-size:13px;color:var(--tx);line-height:1.4;}
+.ltbl .ic{display:inline-block;background:var(--s3);color:var(--pl);border-radius:4px;padding:1px 5px;font-size:10.5px;font-weight:700;margin-right:5px;font-family:monospace;}
+.ltbl input[type=radio]{accent-color:var(--primary);width:16px;height:16px;cursor:pointer;}
+.ltbl tr.answered{background:#f0f5e8!important;}
+.sc-hdr{display:flex;justify-content:space-between;font-size:11px;color:var(--tx3);margin-top:5px;padding:0 2px;}
+/* STEPPER */
+.stepper{display:flex;align-items:center;margin-bottom:24px;overflow-x:auto;padding-bottom:4px;}
+.sdot{width:30px;height:30px;border-radius:50%;border:2px solid var(--bd);background:var(--s);display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;color:var(--tx3);transition:all .22s;flex-shrink:0;}
+.sdot.done{background:var(--ok);border-color:var(--ok);color:#fff;}
+.sdot.active{background:var(--primary);border-color:var(--primary);color:#fff;box-shadow:0 0 0 4px rgba(26,58,92,.12);}
+.sline{height:2px;flex:1;background:var(--bd);transition:background .22s;min-width:20px;}
+.sline.done{background:var(--ok);}
+.slabel{font-size:10.5px;color:var(--tx3);text-align:center;margin-top:3px;white-space:nowrap;}
+.sw{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+/* NAV */
+.nav{display:flex;align-items:center;justify-content:space-between;margin-top:28px;gap:10px;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:11px 26px;border-radius:var(--rsm);font-size:13.5px;font-weight:700;font-family:inherit;cursor:pointer;border:none;transition:all .18s;}
+.btn-p{background:linear-gradient(135deg,var(--primary),var(--pl));color:#fff;box-shadow:0 4px 14px rgba(26,58,92,.25);}
+.btn-p:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,58,92,.32);}
+.btn-p:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+.btn-s{background:var(--s2);color:var(--tx2);border:1.5px solid var(--bd);}
+.btn-s:hover{background:var(--s3);color:var(--tx);}
+.btn-a{background:linear-gradient(135deg,var(--ok),#27ae60);color:#fff;box-shadow:0 4px 14px rgba(26,122,74,.28);}
+.btn-a:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,122,74,.38);}
+.btn-a:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.si{font-size:12.5px;color:var(--tx3);font-weight:500;}
+/* REQ */
+.req{color:var(--er);margin-left:2px;}
+/* SALARY */
+.salw{position:relative;}
+.salw .pfx{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:600;color:var(--tx3);}
+.salw input{padding-left:48px;}
+/* TOAST */
+.toast{position:fixed;bottom:28px;right:28px;background:var(--er);color:#fff;padding:13px 20px;border-radius:var(--r);font-size:13.5px;font-weight:600;box-shadow:0 8px 30px rgba(0,0,0,.18);z-index:9999;transform:translateY(80px);opacity:0;transition:all .35s;max-width:340px;line-height:1.4;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.ok{background:var(--ok);}
+/* PAGE */
+.page{display:none;}
+.page.active{display:block;}
+/* THANKYOU */
+.tyw{text-align:center;padding:52px 20px;}
+.tyi{width:86px;height:86px;border-radius:50%;background:linear-gradient(135deg,var(--ok),#27ae60);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:38px;box-shadow:0 8px 28px rgba(26,122,74,.30);}
+.tyw h2{font-family:'Playfair Display',serif;font-size:26px;color:var(--primary);margin-bottom:10px;}
+.tyw>p{font-size:14.5px;color:var(--tx2);max-width:440px;margin:0 auto 24px;line-height:1.7;}
+.sbox{background:var(--s2);border:1.5px solid var(--bd);border-radius:var(--r);padding:22px;text-align:left;max-width:460px;margin:0 auto;}
+.sbox h3{font-size:13.5px;font-weight:700;color:var(--primary);margin-bottom:13px;}
+.srow{display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-bottom:1px solid var(--bd);color:var(--tx);}
+.srow:last-child{border-bottom:none;}
+.srow .val{font-weight:600;color:var(--primary);}
+/* SENDING OVERLAY */
+.overlay{position:fixed;inset:0;background:rgba(26,58,92,.55);z-index:9998;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;}
+.overlay.show{opacity:1;pointer-events:all;}
+.ovbox{background:#fff;border-radius:18px;padding:36px 44px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.25);}
+.spin{width:44px;height:44px;border:4px solid var(--s3);border-top-color:var(--primary);border-radius:50%;animation:spin .9s linear infinite;margin:0 auto 16px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ovbox p{font-size:15px;font-weight:600;color:var(--primary);}
+.ovbox small{font-size:12.5px;color:var(--tx3);display:block;margin-top:4px;}
+/* RESPONSIVE */
+@media(max-width:600px){
+  .card{padding:18px 14px;}
+  .role-grid{grid-template-columns:1fr;}
+  .fr{grid-template-columns:1fr;}
+  .cgrid{grid-template-columns:1fr;}
+  .cgrid3{grid-template-columns:1fr 1fr;}
+  .hdr-in{padding:28px 14px 22px;}
+  .ltbl{font-size:12px;}
+  .ltbl thead th{padding:7px 3px;font-size:10.5px;}
+  .ltbl td{padding:9px 3px;}
+  .ltbl td:first-child{padding-left:8px;}
+}
+</style>
+</head>
+<body>
+
+<!-- SENDING OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="ovbox">
+    <div class="spin"></div>
+    <p>Mengirim data...</p>
+    <small>Mohon tunggu, jangan tutup halaman ini</small>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-in">
+    <div class="badge">Survei Penelitian Ilmiah</div>
+    <h1>Apakah Kelangkaan Lapangan Kerja Penyebab Utama Pengangguran di Indonesia?</h1>
+    <p>Studi ini mengkaji mismatch pasar tenaga kerja dari dua perspektif: pencari kerja dan pemberi kerja. Partisipasi Anda sangat berarti bagi penelitian akademik dan kebijakan ketenagakerjaan nasional.</p>
+  </div>
+  <div class="pb-wrap"><div class="pb" id="pb"></div></div>
+</header>
+
+<div class="wrap">
+
+<!-- ══════════════════════════════════════
+     PAGE 0 — PILIH PERAN
+══════════════════════════════════════ -->
+<div class="page active" id="p-role">
+<div class="card">
+  <div class="sec-lbl"><span>0</span> Langkah Awal — Identifikasi Peran</div>
+  <h2>Siapakah Anda?</h2>
+  <p class="sub">Pilih peran Anda agar diarahkan ke kuesioner yang sesuai. Terdapat dua versi survei: untuk pencari kerja dan untuk pemberi kerja.</p>
+
+  <div class="role-grid">
+    <div class="rc" id="rc-js" onclick="pickRole('js')">
+      <div class="rck"></div>
+      <div class="ri">🎓</div>
+      <h3>Pencari Kerja</h3>
+      <p>Sedang mencari pekerjaan, baru lulus, atau ingin pindah kerja dalam 12 bulan terakhir</p>
+    </div>
+    <div class="rc" id="rc-em" onclick="pickRole('em')">
+      <div class="rck"></div>
+      <div class="ri">🏢</div>
+      <h3>Pemberi Kerja</h3>
+      <p>Manajer HRD, kepala rekrutmen, pemilik usaha, atau yang bertanggung jawab atas proses rekrutmen</p>
+    </div>
+  </div>
+
+  <div class="ib" style="margin-top:22px;">
+    <strong>🔒 Kerahasiaan Data Terjamin</strong>
+    Seluruh data yang Anda berikan diperlakukan secara anonim dan hanya digunakan untuk kepentingan penelitian akademik sesuai kode etik penelitian yang berlaku. Tidak ada informasi identitas yang dipublikasikan.
+  </div>
+
+  <div class="ib" style="background:#fff8e8;border-color:var(--acc);">
+    <strong>⏱ Estimasi Waktu Pengisian</strong>
+    Pencari kerja: ± 12–15 menit &nbsp;|&nbsp; Pemberi kerja: ± 10–13 menit
+  </div>
+
+  <div class="nav">
+    <span class="si">Langkah persiapan</span>
+    <button class="btn btn-p" id="btn-role-next" onclick="startSurvey()" disabled>Mulai Survei →</button>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PENCARI KERJA — HALAMAN 1
+     Bagian A: Demografis
+══════════════════════════════════════ -->
+<div class="page" id="js-1">
+<div class="card">
+  <div id="js-step-1"></div>
+  <div class="sh">
+    <div class="snum">A</div>
+    <div class="sht">
+      <h2>Karakteristik Demografis & Latar Belakang</h2>
+      <p>Informasi dasar untuk keperluan klasifikasi dan analisis statistik penelitian.</p>
+    </div>
+  </div>
+
+  <div class="fr">
+    <div class="fg">
+      <label>Usia <span class="req">*</span></label>
+      <input type="number" id="js-age" placeholder="Contoh: 24" min="16" max="65">
+    </div>
+    <div class="fg">
+      <label>Jenis Kelamin <span class="req">*</span></label>
+      <select id="js-gender">
+        <option value="">— Pilih —</option>
+        <option>Laki-laki</option>
+        <option>Perempuan</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="fr">
+    <div class="fg">
+      <label>Pendidikan Terakhir <span class="req">*</span></label>
+      <select id="js-edu">
+        <option value="">— Pilih —</option>
+        <option>SMP / Sederajat</option>
+        <option>SMA / SMK / Sederajat</option>
+        <option>D1 / D2</option>
+        <option>D3 / D4 / Vokasi</option>
+        <option>S1 / Sarjana</option>
+        <option>S2 / Magister</option>
+        <option>S3 / Doktor</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Bidang Studi / Jurusan <span class="req">*</span></label>
+      <input type="text" id="js-major" placeholder="Contoh: Manajemen, Teknik Informatika">
+    </div>
+  </div>
+
+  <div class="fr">
+    <div class="fg">
+      <label>Provinsi Tempat Tinggal Saat Ini <span class="req">*</span></label>
+      <select id="js-prov">
+        <option value="">— Pilih Provinsi —</option>
+        <option>Aceh</option><option>Bali</option><option>Banten</option><option>Bengkulu</option>
+        <option>DI Yogyakarta</option><option>DKI Jakarta</option><option>Gorontalo</option>
+        <option>Jambi</option><option>Jawa Barat</option><option>Jawa Tengah</option><option>Jawa Timur</option>
+        <option>Kalimantan Barat</option><option>Kalimantan Selatan</option><option>Kalimantan Tengah</option>
+        <option>Kalimantan Timur</option><option>Kalimantan Utara</option>
+        <option>Kepulauan Bangka Belitung</option><option>Kepulauan Riau</option>
+        <option>Lampung</option><option>Maluku</option><option>Maluku Utara</option>
+        <option>Nusa Tenggara Barat</option><option>Nusa Tenggara Timur</option>
+        <option>Papua</option><option>Papua Barat</option><option>Riau</option>
+        <option>Sulawesi Barat</option><option>Sulawesi Selatan</option><option>Sulawesi Tengah</option>
+        <option>Sulawesi Tenggara</option><option>Sulawesi Utara</option>
+        <option>Sumatera Barat</option><option>Sumatera Selatan</option><option>Sumatera Utara</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Tipe Wilayah Domisili <span class="req">*</span></label>
+      <select id="js-area">
+        <option value="">— Pilih —</option>
+        <option>Kota besar / Ibukota provinsi</option>
+        <option>Kota menengah / Kabupaten</option>
+        <option>Pedesaan / Kecamatan / Desa</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="fr">
+    <div class="fg">
+      <label>Status Pencarian Kerja Saat Ini <span class="req">*</span></label>
+      <select id="js-status">
+        <option value="">— Pilih —</option>
+        <option>Belum pernah bekerja, sedang mencari kerja pertama</option>
+        <option>Pernah bekerja, saat ini menganggur dan mencari kerja</option>
+        <option>Saat ini bekerja, namun aktif mencari pekerjaan baru</option>
+        <option>Sudah berhasil mendapat pekerjaan dalam 6 bulan terakhir</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Lama Waktu Aktif Mencari Kerja <span class="req">*</span></label>
+      <select id="js-dur">
+        <option value="">— Pilih —</option>
+        <option>Kurang dari 1 bulan</option>
+        <option>1–3 bulan</option>
+        <option>3–6 bulan</option>
+        <option>6–12 bulan</option>
+        <option>Lebih dari 12 bulan</option>
+        <option>Sudah berhasil mendapat pekerjaan</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="fr">
+    <div class="fg">
+      <label>Total Pengalaman Kerja <span class="hint">(termasuk magang/freelance)</span></label>
+      <select id="js-exp">
+        <option value="">— Pilih —</option>
+        <option>Tidak ada pengalaman sama sekali</option>
+        <option>Hanya magang / PKL / praktik kerja</option>
+        <option>Kurang dari 1 tahun kerja formal</option>
+        <option>1–2 tahun</option>
+        <option>3–5 tahun</option>
+        <option>Lebih dari 5 tahun</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Sumber Penghasilan Saat Ini</label>
+      <select id="js-income">
+        <option value="">— Pilih —</option>
+        <option>Tidak ada (ditanggung keluarga sepenuhnya)</option>
+        <option>Kerja sambilan / freelance / gig economy</option>
+        <option>Wirausaha / usaha kecil</option>
+        <option>Tabungan / beasiswa</option>
+        <option>Lainnya</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="fg">
+    <label>Program pelatihan/reskilling yang pernah diikuti dalam 2 tahun terakhir <span class="hint">(pilih semua yang sesuai)</span></label>
+    <div class="cgrid">
+      <label class="ci-item"><input type="checkbox" name="js-train" value="Kartu Prakerja"> <span>Kartu Prakerja</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-train" value="BLK Pemerintah"> <span>Pelatihan BLK Pemerintah</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-train" value="Kursus Mandiri Berbayar"> <span>Kursus mandiri berbayar (Coursera, Udemy, dll)</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-train" value="Program Kampus/Sekolah"> <span>Program dari kampus / sekolah</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-train" value="Pelatihan Perusahaan Sebelumnya"> <span>Pelatihan dari perusahaan sebelumnya</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-train" value="Tidak Pernah"> <span>Tidak pernah mengikuti pelatihan</span></label>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="btn btn-s" onclick="goRole()">← Kembali</button>
+    <span class="si" id="js-si-1"></span>
+    <button class="btn btn-p" onclick="jsNext(1)">Lanjutkan →</button>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PENCARI KERJA — HALAMAN 2
+     Bagian B: Persepsi Lapangan Kerja & Perilaku
+══════════════════════════════════════ -->
+<div class="page" id="js-2">
+<div class="card">
+  <div id="js-step-2"></div>
+  <div class="sh">
+    <div class="snum">B</div>
+    <div class="sht">
+      <h2>Persepsi Ketersediaan Lapangan Kerja & Perilaku Pencarian</h2>
+      <p>Skala: <strong>1</strong>=Sangat Tidak Setuju &nbsp;·&nbsp; <strong>3</strong>=Netral &nbsp;·&nbsp; <strong>5</strong>=Sangat Setuju</p>
+    </div>
+  </div>
+
+  <div class="div"><span class="lbl">B1 — Kelangkaan Lapangan Kerja (Job Scarcity)</span></div>
+  <div id="lt-js-b1"></div>
+
+  <div class="div"><span class="lbl">B2 — Perilaku & Efektivitas Pencarian Kerja</span></div>
+  <div id="lt-js-b2"></div>
+
+  <div class="div"><span class="lbl">B3 — Asimetri Informasi Pasar Kerja</span></div>
+  <div id="lt-js-b3"></div>
+
+  <div class="div"><span class="lbl">B4 — Data Faktual Pencarian Kerja</span></div>
+  <div class="fr">
+    <div class="fg">
+      <label>Jumlah lamaran yang dikirim dalam 3 bulan terakhir <span class="req">*</span></label>
+      <input type="number" id="js-apps" placeholder="0" min="0">
+    </div>
+    <div class="fg">
+      <label>Jumlah yang mendapat respons / undangan wawancara</label>
+      <input type="number" id="js-resp" placeholder="0" min="0">
+    </div>
+  </div>
+  <div class="fr">
+    <div class="fg">
+      <label>Platform utama pencarian kerja <span class="req">*</span></label>
+      <select id="js-platform">
+        <option value="">— Pilih —</option>
+        <option>Jobstreet / Indeed / Glints / Kalibrr</option>
+        <option>LinkedIn</option>
+        <option>Referensi teman / keluarga / kenalan</option>
+        <option>Media sosial (Instagram, TikTok, Facebook)</option>
+        <option>Dinas Tenaga Kerja / job fair pemerintah</option>
+        <option>Melamar langsung ke website perusahaan</option>
+        <option>Kombinasi beberapa platform</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Pernah menolak tawaran kerja?</label>
+      <select id="js-reject">
+        <option value="">— Pilih —</option>
+        <option>Ya, pernah menolak tawaran</option>
+        <option>Tidak pernah mendapat tawaran</option>
+        <option>Pernah mendapat tawaran, tidak ada yang ditolak</option>
+      </select>
+    </div>
+  </div>
+  <div class="fg">
+    <label>Alasan menolak tawaran kerja <span class="hint">(pilih semua yang relevan)</span></label>
+    <div class="cgrid">
+      <label class="ci-item"><input type="checkbox" name="js-rej-reason" value="Gaji terlalu rendah"> <span>Gaji terlalu rendah</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-rej-reason" value="Lokasi tidak sesuai"> <span>Lokasi tidak sesuai / terlalu jauh</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-rej-reason" value="Budaya perusahaan tidak cocok"> <span>Budaya / lingkungan kerja tidak cocok</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-rej-reason" value="Tidak ada opsi WFH/fleksibel"> <span>Tidak ada opsi WFH / jam fleksibel</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-rej-reason" value="Jenjang karir tidak jelas"> <span>Jenjang karir tidak jelas / tidak ada</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-rej-reason" value="Bidang pekerjaan tidak sesuai minat"> <span>Bidang pekerjaan tidak sesuai minat</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-rej-reason" value="Status kontrak/outsource"> <span>Status kepegawaian tidak aman (kontrak/outsource)</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-rej-reason" value="Reputasi perusahaan buruk"> <span>Reputasi / citra perusahaan kurang baik</span></label>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="btn btn-s" onclick="jsBack(2)">← Kembali</button>
+    <span class="si" id="js-si-2"></span>
+    <button class="btn btn-p" onclick="jsNext(2)">Lanjutkan →</button>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PENCARI KERJA — HALAMAN 3
+     Bagian C: Mismatch Keterampilan & Pengalaman
+══════════════════════════════════════ -->
+<div class="page" id="js-3">
+<div class="card">
+  <div id="js-step-3"></div>
+  <div class="sh">
+    <div class="snum">C</div>
+    <div class="sht">
+      <h2>Mismatch Keterampilan & Pengalaman Kerja</h2>
+      <p>Skala: <strong>1</strong>=Sangat Tidak Setuju &nbsp;·&nbsp; <strong>3</strong>=Netral &nbsp;·&nbsp; <strong>5</strong>=Sangat Setuju</p>
+    </div>
+  </div>
+
+  <div class="div"><span class="lbl">C1 — Mismatch Hard Skills (Keterampilan Teknis)</span></div>
+  <div id="lt-js-c1"></div>
+
+  <div class="div"><span class="lbl">C2 — Mismatch Soft Skills (Keterampilan Non-Teknis)</span></div>
+  <div id="lt-js-c2"></div>
+
+  <div class="div"><span class="lbl">C3 — Mismatch Pengalaman Kerja</span></div>
+  <div id="lt-js-c3"></div>
+
+  <div class="fg" style="margin-top:20px;">
+    <label>Keterampilan yang paling ingin Anda tingkatkan <span class="hint">(pilih maks. 3)</span></label>
+    <div class="cgrid3">
+      <label class="ci-item"><input type="checkbox" name="js-skill-up" value="Analisis data / statistik"> <span>Analisis data</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-skill-up" value="Pemrograman/IT/software"> <span>Pemrograman / IT</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-skill-up" value="Bahasa Inggris aktif"> <span>Bahasa Inggris</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-skill-up" value="Komunikasi bisnis profesional"> <span>Komunikasi bisnis</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-skill-up" value="Kepemimpinan dan inisiatif"> <span>Kepemimpinan</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-skill-up" value="Manajemen proyek"> <span>Manajemen proyek</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-skill-up" value="Keuangan/akuntansi"> <span>Keuangan / akuntansi</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-skill-up" value="Pemasaran digital"> <span>Pemasaran digital</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-skill-up" value="Negosiasi dan persuasi"> <span>Negosiasi</span></label>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="btn btn-s" onclick="jsBack(3)">← Kembali</button>
+    <span class="si" id="js-si-3"></span>
+    <button class="btn btn-p" onclick="jsNext(3)">Lanjutkan →</button>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PENCARI KERJA — HALAMAN 4
+     Bagian D: Mismatch Gaji & Preferensi
+══════════════════════════════════════ -->
+<div class="page" id="js-4">
+<div class="card">
+  <div id="js-step-4"></div>
+  <div class="sh">
+    <div class="snum">D</div>
+    <div class="sht">
+      <h2>Mismatch Ekspektasi Gaji & Preferensi Kerja</h2>
+      <p>Skala: <strong>1</strong>=Sangat Tidak Setuju &nbsp;·&nbsp; <strong>3</strong>=Netral &nbsp;·&nbsp; <strong>5</strong>=Sangat Setuju</p>
+    </div>
+  </div>
+
+  <div class="div"><span class="lbl">D1 — Data Ekspektasi Gaji</span></div>
+  <div class="fr">
+    <div class="fg">
+      <label>Gaji minimum yang Anda harapkan (take-home pay/bulan) <span class="req">*</span></label>
+      <div class="salw">
+        <span class="pfx">Rp</span>
+        <input type="number" id="js-sal-exp" placeholder="Contoh: 5000000" min="0">
+      </div>
+    </div>
+    <div class="fg">
+      <label>Gaji rata-rata ditawarkan pada lowongan yang Anda lamar <span class="req">*</span></label>
+      <select id="js-sal-off">
+        <option value="">— Pilih —</option>
+        <option>Jauh di bawah ekspektasi saya (selisih lebih dari 50%)</option>
+        <option>Di bawah ekspektasi (selisih 20–50%)</option>
+        <option>Sedikit di bawah ekspektasi (selisih kurang dari 20%)</option>
+        <option>Sesuai ekspektasi saya</option>
+        <option>Di atas ekspektasi saya</option>
+        <option>Kebanyakan lowongan tidak mencantumkan gaji</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="div"><span class="lbl">D2 — Mismatch Ekspektasi Gaji (Persepsi)</span></div>
+  <div id="lt-js-d2"></div>
+
+  <div class="div"><span class="lbl">D3 — Mismatch Preferensi & Kondisi Kerja</span></div>
+  <div id="lt-js-d3"></div>
+
+  <div class="div"><span class="lbl">D4 — Fleksibilitas & Kesediaan Berkompromi</span></div>
+  <div id="lt-js-d4"></div>
+
+  <div class="fr" style="margin-top:18px;">
+    <div class="fg">
+      <label>Sistem kerja yang Anda inginkan <span class="req">*</span></label>
+      <select id="js-worksys">
+        <option value="">— Pilih —</option>
+        <option>Full WFH (bekerja dari rumah sepenuhnya)</option>
+        <option>Hybrid (kombinasi WFO dan WFH)</option>
+        <option>Full WFO (tidak masalah masuk kantor setiap hari)</option>
+        <option>Tidak ada preferensi khusus tentang sistem kerja</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Kesediaan berpindah domisili untuk pekerjaan <span class="req">*</span></label>
+      <select id="js-reloc">
+        <option value="">— Pilih —</option>
+        <option>Tidak bersedia pindah sama sekali</option>
+        <option>Bersedia pindah dalam provinsi yang sama</option>
+        <option>Bersedia pindah ke kota besar mana saja di Indonesia</option>
+        <option>Bersedia pindah ke mana saja termasuk luar negeri</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="btn btn-s" onclick="jsBack(4)">← Kembali</button>
+    <span class="si" id="js-si-4"></span>
+    <button class="btn btn-p" onclick="jsNext(4)">Lanjutkan →</button>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PENCARI KERJA — HALAMAN 5
+     Bagian E: Pendidikan, Persepsi, Self-Efficacy
+══════════════════════════════════════ -->
+<div class="page" id="js-5">
+<div class="card">
+  <div id="js-step-5"></div>
+  <div class="sh">
+    <div class="snum">E</div>
+    <div class="sht">
+      <h2>Relevansi Pendidikan, Persepsi Makro & Keyakinan Diri</h2>
+      <p>Skala: <strong>1</strong>=Sangat Tidak Setuju &nbsp;·&nbsp; <strong>3</strong>=Netral &nbsp;·&nbsp; <strong>5</strong>=Sangat Setuju</p>
+    </div>
+  </div>
+
+  <div class="div"><span class="lbl">E1 — Relevansi Pendidikan terhadap Kebutuhan Industri</span></div>
+  <div id="lt-js-e1"></div>
+
+  <div class="div"><span class="lbl">E2 — Asimetri Informasi & Kualitas Proses Rekrutmen</span></div>
+  <div id="lt-js-e2"></div>
+
+  <div class="div"><span class="lbl">E3 — Self-Efficacy, Motivasi & Resiliensi</span></div>
+  <div id="lt-js-e3"></div>
+
+  <div class="fg" style="margin-top:18px;">
+    <label>Menurut Anda, apa penyebab utama pengangguran di Indonesia? <span class="hint">(pilih maks. 2)</span></label>
+    <div class="cgrid">
+      <label class="ci-item"><input type="checkbox" name="js-cause" value="Kurangnya lapangan kerja"> <span>Kurangnya lapangan kerja</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-cause" value="Ketidakcocokan keterampilan (skill mismatch)"> <span>Ketidakcocokan keterampilan</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-cause" value="Ekspektasi gaji yang tidak realistis"> <span>Ekspektasi gaji yang tidak realistis</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-cause" value="Diskriminasi dalam proses rekrutmen"> <span>Diskriminasi dalam rekrutmen</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-cause" value="Kurangnya akses informasi lowongan"> <span>Kurangnya akses informasi lowongan</span></label>
+      <label class="ci-item"><input type="checkbox" name="js-cause" value="Kurangnya jaringan/koneksi (nepotisme)"> <span>Kurangnya jaringan / koneksi (nepotisme)</span></label>
+    </div>
+  </div>
+
+  <div class="fg">
+    <label>Saran, pengalaman, atau masukan yang ingin Anda bagikan kepada peneliti: <span class="hint">(opsional)</span></label>
+    <textarea id="js-comment" rows="3" placeholder="Tuliskan pengalaman atau masukan Anda di sini..."></textarea>
+  </div>
+
+  <div class="nav">
+    <button class="btn btn-s" onclick="jsBack(5)">← Kembali</button>
+    <span class="si" id="js-si-5"></span>
+    <button class="btn btn-a" id="js-submit-btn" onclick="submitJS()">✓ Kirim Survei</button>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PEMBERI KERJA — HALAMAN 1
+     Bagian A: Profil Perusahaan
+══════════════════════════════════════ -->
+<div class="page" id="em-1">
+<div class="card">
+  <div id="em-step-1"></div>
+  <div class="sh">
+    <div class="snum">A</div>
+    <div class="sht">
+      <h2>Profil Perusahaan & Identitas Responden</h2>
+      <p>Informasi tentang perusahaan Anda untuk keperluan klasifikasi sampel penelitian.</p>
+    </div>
+  </div>
+
+  <div class="fr">
+    <div class="fg">
+      <label>Sektor / Industri Perusahaan <span class="req">*</span></label>
+      <select id="em-sector">
+        <option value="">— Pilih —</option>
+        <option>Manufaktur / Industri pengolahan</option>
+        <option>Perdagangan (ritel / grosir)</option>
+        <option>Jasa Keuangan & Perbankan</option>
+        <option>Teknologi Informasi & Digital</option>
+        <option>Kesehatan & Farmasi</option>
+        <option>Pendidikan & Pelatihan</option>
+        <option>Konstruksi & Properti</option>
+        <option>Transportasi & Logistik</option>
+        <option>Pertanian / Perkebunan / Perikanan</option>
+        <option>Pariwisata & Perhotelan</option>
+        <option>Media & Industri Kreatif</option>
+        <option>BUMN / Instansi Pemerintah</option>
+        <option>Lainnya</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Kepemilikan Perusahaan <span class="req">*</span></label>
+      <select id="em-own">
+        <option value="">— Pilih —</option>
+        <option>Swasta nasional</option>
+        <option>Swasta asing / multinasional</option>
+        <option>BUMN / BUMD</option>
+        <option>Koperasi</option>
+        <option>Usaha perseorangan / UMKM</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="fr">
+    <div class="fg">
+      <label>Jumlah Total Karyawan <span class="req">*</span></label>
+      <select id="em-size">
+        <option value="">— Pilih —</option>
+        <option>Mikro: 1–9 karyawan</option>
+        <option>Kecil: 10–49 karyawan</option>
+        <option>Menengah: 50–249 karyawan</option>
+        <option>Besar: 250–999 karyawan</option>
+        <option>Sangat besar: 1.000+ karyawan</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Provinsi Lokasi Operasional Utama <span class="req">*</span></label>
+      <select id="em-prov">
+        <option value="">— Pilih Provinsi —</option>
+        <option>Aceh</option><option>Bali</option><option>Banten</option><option>Bengkulu</option>
+        <option>DI Yogyakarta</option><option>DKI Jakarta</option><option>Gorontalo</option>
+        <option>Jambi</option><option>Jawa Barat</option><option>Jawa Tengah</option><option>Jawa Timur</option>
+        <option>Kalimantan Barat</option><option>Kalimantan Selatan</option><option>Kalimantan Tengah</option>
+        <option>Kalimantan Timur</option><option>Kalimantan Utara</option>
+        <option>Kepulauan Bangka Belitung</option><option>Kepulauan Riau</option>
+        <option>Lampung</option><option>Maluku</option><option>Maluku Utara</option>
+        <option>Nusa Tenggara Barat</option><option>Nusa Tenggara Timur</option>
+        <option>Papua</option><option>Papua Barat</option><option>Riau</option>
+        <option>Sulawesi Barat</option><option>Sulawesi Selatan</option><option>Sulawesi Tengah</option>
+        <option>Sulawesi Tenggara</option><option>Sulawesi Utara</option>
+        <option>Sumatera Barat</option><option>Sumatera Selatan</option><option>Sumatera Utara</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="fr">
+    <div class="fg">
+      <label>Jabatan / Posisi Responden <span class="req">*</span></label>
+      <select id="em-pos">
+        <option value="">— Pilih —</option>
+        <option>Manajer / Kepala HRD / HR Manager</option>
+        <option>Staf Rekrutmen / Talent Acquisition</option>
+        <option>Direktur / C-Level Executive</option>
+        <option>Pemilik Usaha / Entrepreneur / Founder</option>
+        <option>Manajer Lini / Supervisor yang terlibat rekrutmen</option>
+        <option>Lainnya</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Jumlah Posisi yang Sedang Dibuka Saat Ini</label>
+      <input type="number" id="em-openpos" placeholder="0" min="0">
+    </div>
+  </div>
+
+  <div class="fr">
+    <div class="fg">
+      <label>Frekuensi Rekrutmen dalam Setahun Terakhir <span class="req">*</span></label>
+      <select id="em-freq">
+        <option value="">— Pilih —</option>
+        <option>Tidak ada rekrutmen dalam setahun terakhir</option>
+        <option>1–2 kali rekrutmen</option>
+        <option>3–5 kali rekrutmen</option>
+        <option>6–10 kali rekrutmen</option>
+        <option>Lebih dari 10 kali (rekrutmen rutin / terus-menerus)</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Rata-rata Waktu Mengisi Satu Lowongan <span class="req">*</span></label>
+      <select id="em-filltime">
+        <option value="">— Pilih —</option>
+        <option>Kurang dari 2 minggu</option>
+        <option>2–4 minggu</option>
+        <option>1–2 bulan</option>
+        <option>2–3 bulan</option>
+        <option>Lebih dari 3 bulan</option>
+        <option>Posisi sering tidak berhasil terisi</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="fr">
+    <div class="fg">
+      <label>Kisaran gaji yang ditawarkan untuk posisi junior/entry-level <span class="req">*</span></label>
+      <select id="em-sal-entry">
+        <option value="">— Pilih —</option>
+        <option>Di bawah Rp 3 juta/bulan</option>
+        <option>Rp 3–5 juta/bulan</option>
+        <option>Rp 5–7 juta/bulan</option>
+        <option>Rp 7–10 juta/bulan</option>
+        <option>Di atas Rp 10 juta/bulan</option>
+        <option>Bergantung negosiasi, tidak ada range tetap</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Pengalaman minimum yang disyaratkan untuk posisi junior/staff <span class="req">*</span></label>
+      <select id="em-exp-req">
+        <option value="">— Pilih —</option>
+        <option>Tidak ada syarat pengalaman (fresh graduate diterima)</option>
+        <option>Minimal 1 tahun pengalaman kerja formal</option>
+        <option>Minimal 2 tahun pengalaman</option>
+        <option>Minimal 3 tahun pengalaman</option>
+        <option>Lebih dari 3 tahun pengalaman</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="fg">
+    <label>Program onboarding / pelatihan terstruktur untuk karyawan baru <span class="req">*</span></label>
+    <div class="rg">
+      <label class="ri-item"><input type="radio" name="em-onboard" value="Ya, sangat terstruktur (lebih dari 4 minggu)"> <span>Ya, sangat terstruktur (lebih dari 4 minggu)</span></label>
+      <label class="ri-item"><input type="radio" name="em-onboard" value="Ya, terbatas (1–4 minggu)"> <span>Ya, terbatas (1–4 minggu)</span></label>
+      <label class="ri-item"><input type="radio" name="em-onboard" value="Ada, tetapi informal dan tidak terstruktur"> <span>Ada, tetapi informal dan tidak terstruktur</span></label>
+      <label class="ri-item"><input type="radio" name="em-onboard" value="Tidak ada program onboarding"> <span>Tidak ada program onboarding</span></label>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="btn btn-s" onclick="goRole()">← Kembali</button>
+    <span class="si" id="em-si-1"></span>
+    <button class="btn btn-p" onclick="emNext(1)">Lanjutkan →</button>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PEMBERI KERJA — HALAMAN 2
+     Bagian B: Kesulitan Rekrutmen & Skill Mismatch
+══════════════════════════════════════ -->
+<div class="page" id="em-2">
+<div class="card">
+  <div id="em-step-2"></div>
+  <div class="sh">
+    <div class="snum">B</div>
+    <div class="sht">
+      <h2>Kesulitan Rekrutmen & Mismatch Keterampilan</h2>
+      <p>Skala: <strong>1</strong>=Sangat Tidak Setuju &nbsp;·&nbsp; <strong>3</strong>=Netral &nbsp;·&nbsp; <strong>5</strong>=Sangat Setuju</p>
+    </div>
+  </div>
+
+  <div class="div"><span class="lbl">B1 — Kesulitan Umum Proses Rekrutmen</span></div>
+  <div id="lt-em-b1"></div>
+
+  <div class="div"><span class="lbl">B2 — Mismatch Keterampilan dari Perspektif Pemberi Kerja</span></div>
+  <div id="lt-em-b2"></div>
+
+  <div class="fg" style="margin-top:20px;">
+    <label>Keterampilan yang paling sulit ditemukan pada pelamar <span class="hint">(pilih semua yang relevan)</span></label>
+    <div class="cgrid3">
+      <label class="ci-item"><input type="checkbox" name="em-hard-skill" value="Analisis data / statistik"> <span>Analisis data / statistik</span></label>
+      <label class="ci-item"><input type="checkbox" name="em-hard-skill" value="Pemrograman / software development"> <span>Pemrograman / software</span></label>
+      <label class="ci-item"><input type="checkbox" name="em-hard-skill" value="Bahasa Inggris aktif (lisan dan tulisan)"> <span>Bahasa Inggris aktif</span></label>
+      <label class="ci-item"><input type="checkbox" name="em-hard-skill" value="Komunikasi profesional dan presentasi"> <span>Komunikasi & presentasi</span></label>
+      <label class="ci-item"><input type="checkbox" name="em-hard-skill" value="Kepemimpinan dan inisiatif"> <span>Kepemimpinan & inisiatif</span></label>
+      <label class="ci-item"><input type="checkbox" name="em-hard-skill" value="Manajemen proyek"> <span>Manajemen proyek</span></label>
+      <label class="ci-item"><input type="checkbox" name="em-hard-skill" value="Keuangan dan akuntansi"> <span>Keuangan & akuntansi</span></label>
+      <label class="ci-item"><input type="checkbox" name="em-hard-skill" value="Pemasaran digital / digital marketing"> <span>Pemasaran digital</span></label>
+      <label class="ci-item"><input type="checkbox" name="em-hard-skill" value="Layanan pelanggan (customer service)"> <span>Layanan pelanggan</span></label>
+      <label class="ci-item"><input type="checkbox" name="em-hard-skill" value="Pemecahan masalah dan berpikir kritis"> <span>Problem solving / kritis</span></label>
+      <label class="ci-item"><input type="checkbox" name="em-hard-skill" value="Sikap kerja / etika profesional"> <span>Sikap kerja / etika profesi</span></label>
+      <label class="ci-item"><input type="checkbox" name="em-hard-skill" value="Kerja tim dan kolaborasi"> <span>Kerja tim / kolaborasi</span></label>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="btn btn-s" onclick="emBack(2)">← Kembali</button>
+    <span class="si" id="em-si-2"></span>
+    <button class="btn btn-p" onclick="emNext(2)">Lanjutkan →</button>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PEMBERI KERJA — HALAMAN 3
+     Bagian C: Pengalaman, Gaji, Preferensi
+══════════════════════════════════════ -->
+<div class="page" id="em-3">
+<div class="card">
+  <div id="em-step-3"></div>
+  <div class="sh">
+    <div class="snum">C</div>
+    <div class="sht">
+      <h2>Mismatch Pengalaman, Gaji & Preferensi Pelamar</h2>
+      <p>Skala: <strong>1</strong>=Sangat Tidak Setuju &nbsp;·&nbsp; <strong>3</strong>=Netral &nbsp;·&nbsp; <strong>5</strong>=Sangat Setuju</p>
+    </div>
+  </div>
+
+  <div class="div"><span class="lbl">C1 — Mismatch Pengalaman Kerja Pelamar</span></div>
+  <div id="lt-em-c1"></div>
+
+  <div class="div"><span class="lbl">C2 — Mismatch Ekspektasi Gaji Pelamar</span></div>
+  <div id="lt-em-c2"></div>
+
+  <div class="div"><span class="lbl">C3 — Mismatch Preferensi & Kondisi Kerja Pelamar</span></div>
+  <div id="lt-em-c3"></div>
+
+  <div class="nav">
+    <button class="btn btn-s" onclick="emBack(3)">← Kembali</button>
+    <span class="si" id="em-si-3"></span>
+    <button class="btn btn-p" onclick="emNext(3)">Lanjutkan →</button>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PEMBERI KERJA — HALAMAN 4
+     Bagian D: Fleksibilitas, Pelatihan, Persepsi Makro
+══════════════════════════════════════ -->
+<div class="page" id="em-4">
+<div class="card">
+  <div id="em-step-4"></div>
+  <div class="sh">
+    <div class="snum">D</div>
+    <div class="sht">
+      <h2>Fleksibilitas Rekrutmen, Kesediaan Melatih & Persepsi Pasar Kerja</h2>
+      <p>Skala: <strong>1</strong>=Sangat Tidak Setuju &nbsp;·&nbsp; <strong>3</strong>=Netral &nbsp;·&nbsp; <strong>5</strong>=Sangat Setuju</p>
+    </div>
+  </div>
+
+  <div class="div"><span class="lbl">D1 — Fleksibilitas Standar & Proses Rekrutmen</span></div>
+  <div id="lt-em-d1"></div>
+
+  <div class="div"><span class="lbl">D2 — Kesediaan Berinvestasi dalam Pelatihan Karyawan</span></div>
+  <div id="lt-em-d2"></div>
+
+  <div class="div"><span class="lbl">D3 — Persepsi terhadap Pasar Tenaga Kerja Indonesia</span></div>
+  <div id="lt-em-d3"></div>
+
+  <div class="fg" style="margin-top:18px;">
+    <label>Menurut Anda, penyebab utama kesulitan rekrutmen di Indonesia adalah: <span class="hint">(pilih maks. 2)</span></label>
+    <div class="cgrid">
+      <label class="ci-item"><input type="checkbox" name="em-cause" value="Kurangnya tenaga kerja terampil di bidang yang dibutuhkan"> <span>Kurangnya tenaga kerja terampil</span></label>
+      <label class="ci-item"><input type="checkbox" name="em-cause" value="Ekspektasi gaji pelamar yang terlalu tinggi"> <span>Ekspektasi gaji terlalu tinggi</span></label>
+      <label class="ci-item"><input type="checkbox" name="em-cause" value="Sikap kerja / profesionalisme pelamar rendah"> <span>Sikap kerja / profesionalisme rendah</span></label>
+      <label class="ci-item"><input type="checkbox" name="em-cause" value="Jumlah pelamar memang secara absolut kurang"> <span>Jumlah pelamar memang kurang</span></label>
+      <label class="ci-item"><input type="checkbox" name="em-cause" value="Informasi lowongan tidak menjangkau kandidat yang tepat"> <span>Informasi lowongan tidak menjangkau kandidat tepat</span></label>
+      <label class="ci-item"><input type="checkbox" name="em-cause" value="Preferensi kondisi kerja pelamar yang tidak realistis"> <span>Preferensi kondisi kerja tidak realistis</span></label>
+    </div>
+  </div>
+
+  <div class="fg">
+    <label>Saran atau masukan untuk peningkatan kualitas tenaga kerja Indonesia: <span class="hint">(opsional)</span></label>
+    <textarea id="em-comment" rows="3" placeholder="Tuliskan masukan, pengalaman, atau saran kebijakan Anda di sini..."></textarea>
+  </div>
+
+  <div class="nav">
+    <button class="btn btn-s" onclick="emBack(4)">← Kembali</button>
+    <span class="si" id="em-si-4"></span>
+    <button class="btn btn-a" id="em-submit-btn" onclick="submitEM()">✓ Kirim Survei</button>
+  </div>
+</div>
+</div>
+
+<!-- THANK YOU PAGE -->
+<div class="page" id="p-thanks">
+<div class="card">
+  <div class="tyw">
+    <div class="tyi">✓</div>
+    <h2>Terima Kasih atas Partisipasi Anda!</h2>
+    <p>Respons Anda telah berhasil dicatat dan dikirim ke basis data penelitian. Kontribusi Anda sangat berharga untuk menghasilkan rekomendasi kebijakan ketenagakerjaan yang lebih baik bagi Indonesia.</p>
+    <div class="sbox">
+      <h3>📋 Ringkasan Pengisian</h3>
+      <div class="srow"><span>Peran responden</span><span class="val" id="ty-role">—</span></div>
+      <div class="srow"><span>Status pengiriman</span><span class="val" id="ty-status" style="color:var(--ok)">✓ Berhasil terkirim</span></div>
+      <div class="srow"><span>Waktu pengisian</span><span class="val" id="ty-dur">—</span></div>
+      <div class="srow"><span>Tanggal & jam</span><span class="val" id="ty-date">—</span></div>
+    </div>
+    <p style="margin-top:22px;font-size:12.5px;color:var(--tx3);">Hasil penelitian akan dipublikasikan di jurnal ilmiah terakreditasi. Jika Anda ingin menerima ringkasan temuan penelitian ini, silakan hubungi peneliti melalui email yang tercantum pada lembar informasi penelitian.</p>
+  </div>
+</div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// KONFIGURASI — GANTI HANYA BAGIAN INI
+// ═══════════════════════════════════════════════════════════════
+// Setelah deploy Google Apps Script sebagai web app, tempel URL-nya di sini.
+// Panduan: buka script.google.com → buat project baru → paste kode Apps Script
+// di bawah → Deploy → Manage Deployments → New Deployment → Web App
+// → Execute as: Me, Who has access: Anyone → Deploy → salin URL.
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbw4y8J77_cwHY-QNdTOyo5B7JBz0q6mqwgMwt2boFgNrPKPpigf4RCC-TM4cqjsCeXC_w/exec/exec';
+// ═══════════════════════════════════════════════════════════════
+
+// ─── LIKERT DATA ───────────────────────────────────────────────
+const LK = {
+'js-b1':[
+  {c:'JS1',t:'Saya kesulitan menemukan lowongan yang sesuai dengan bidang pendidikan atau keahlian saya.'},
+  {c:'JS2',t:'Jumlah lowongan pekerjaan di daerah tempat tinggal saya sangat terbatas.'},
+  {c:'JS3',t:'Untuk mendapatkan satu lowongan, saya harus bersaing dengan sangat banyak pelamar.'},
+  {c:'JS4',t:'Lowongan yang tersedia sebagian besar tidak relevan dengan latar belakang saya.'},
+  {c:'JS5',t:'Di bidang saya, jumlah pencari kerja jauh melebihi jumlah lowongan yang tersedia.'},
+  {c:'JS6',t:'Saya sulit menemukan lowongan bahkan ketika bersedia bekerja di bidang manapun.'},
+  {c:'JS7',t:'Kondisi ekonomi saat ini menyebabkan semakin sedikit perusahaan yang membuka lowongan baru.'},
+],
+'js-b2':[
+  {c:'PK1',t:'Saya mengalokasikan lebih dari 2 jam per hari secara aktif untuk mencari pekerjaan.'},
+  {c:'PK2',t:'Saya melamar secara selektif hanya pada pekerjaan yang benar-benar sesuai kriteria saya.'},
+  {c:'PK3',t:'Saya sering mendapat undangan wawancara tetapi gagal di tahap seleksi lanjutan.'},
+  {c:'PK4',t:'Saya belum pernah mendapat respons positif meskipun sudah banyak mengirimkan lamaran.'},
+  {c:'PK5',t:'Saya merasa proses rekrutmen di Indonesia tidak transparan dan tidak adil.'},
+  {c:'PK6',t:'Jaringan pertemanan dan kenalan terbukti lebih efektif daripada melamar secara formal.'},
+  {c:'PK7',t:'Kualitas CV dan surat lamaran saya sudah cukup baik untuk posisi yang saya lamar.'},
+],
+'js-b3':[
+  {c:'AI1',t:'Saya kesulitan mengetahui kisaran gaji yang wajar untuk posisi yang saya lamar.'},
+  {c:'AI2',t:'Informasi tentang kualifikasi yang dibutuhkan perusahaan sering tidak jelas atau tidak lengkap.'},
+  {c:'AI3',t:'Saya tidak tahu alasan pasti mengapa lamaran saya ditolak karena tidak pernah diberi umpan balik.'},
+  {c:'AI4',t:'Saya merasa tidak memiliki akses informasi yang setara dengan kandidat lain dalam proses rekrutmen.'},
+  {c:'AI5',t:'Sulit mengetahui perusahaan mana yang sedang aktif merekrut di bidang saya.'},
+],
+'js-c1':[
+  {c:'SK1',t:'Keterampilan teknis yang saya miliki tidak sesuai dengan persyaratan pekerjaan yang saya lamar.'},
+  {c:'SK2',t:'Saya tidak memiliki keterampilan digital yang cukup untuk pekerjaan yang saya inginkan.'},
+  {c:'SK3',t:'Kemampuan bahasa asing saya tidak memenuhi standar yang diminta pemberi kerja.'},
+  {c:'SK4',t:'Sertifikasi atau kompetensi formal yang saya miliki tidak diakui oleh pemberi kerja yang saya lamar.'},
+  {c:'SK5',t:'Keterampilan yang saya pelajari di bangku kuliah atau sekolah sudah tidak relevan dengan kebutuhan industri.'},
+  {c:'SK6',t:'Saya perlu mengikuti pelatihan tambahan agar bisa bersaing secara efektif di pasar kerja.'},
+  {c:'SK7',t:'Keterampilan spesifik yang diminta perusahaan berkembang lebih cepat dari kemampuan saya mengikutinya.'},
+],
+'js-c2':[
+  {c:'SS1',t:'Saya merasa kurang memiliki kemampuan komunikasi profesional yang dibutuhkan dunia kerja.'},
+  {c:'SS2',t:'Kemampuan bekerja dalam tim saya belum cukup baik untuk memenuhi standar pemberi kerja.'},
+  {c:'SS3',t:'Saya kesulitan menunjukkan jiwa kepemimpinan dan inisiatif yang dicari oleh perekrut.'},
+  {c:'SS4',t:'Kemampuan presentasi dan public speaking saya tidak memenuhi harapan perusahaan.'},
+  {c:'SS5',t:'Saya merasa kurang percaya diri saat wawancara kerja atau dalam situasi profesional.'},
+  {c:'SS6',t:'Pendidikan formal saya kurang melatih saya untuk keterampilan non-teknis yang dibutuhkan industri.'},
+],
+'js-c3':[
+  {c:'EX1',t:'Kebanyakan lowongan yang saya lamar mensyaratkan pengalaman kerja yang belum saya miliki.'},
+  {c:'EX2',t:'Saya kesulitan menemukan lowongan yang bersedia menerima pelamar tanpa pengalaman kerja.'},
+  {c:'EX3',t:'Pengalaman magang atau PKL saya tidak dianggap setara dengan pengalaman kerja formal oleh pemberi kerja.'},
+  {c:'EX4',t:'Persyaratan pengalaman yang diminta pemberi kerja tidak realistis untuk posisi yang disebut "entry level" atau "junior".'},
+  {c:'EX5',t:'Pengalaman kerja saya di bidang lain dianggap tidak relevan meskipun keterampilannya bisa ditransfer.'},
+  {c:'EX6',t:'Saya merasa terjebak: butuh pengalaman untuk mendapat kerja, tetapi tidak bisa mendapat kerja tanpa pengalaman.'},
+  {c:'EX7',t:'Proyek akademik, organisasi mahasiswa, atau freelance yang saya lakukan tidak dihargai sebagai bukti kemampuan.'},
+],
+'js-d2':[
+  {c:'SAL1',t:'Gaji yang ditawarkan pemberi kerja terlalu rendah dibandingkan biaya hidup di kota tempat saya tinggal.'},
+  {c:'SAL2',t:'Ekspektasi gaji saya didasarkan pada tingkat pendidikan dan keterampilan yang saya miliki secara realistis.'},
+  {c:'SAL3',t:'Saya pernah menolak tawaran kerja karena gajinya jauh di bawah ekspektasi minimum saya.'},
+  {c:'SAL4',t:'Informasi gaji di media sosial dan internet membuat ekspektasi gaji saya menjadi tidak realistis.'},
+  {c:'SAL5',t:'Saya kesulitan mengetahui berapa kisaran gaji yang wajar untuk posisi yang saya lamar.'},
+  {c:'SAL6',t:'Banyak perusahaan menawarkan gaji di bawah Upah Minimum Regional (UMR) yang berlaku.'},
+  {c:'SAL7',t:'Ada ketidakadilan antara gaji yang ditawarkan dengan beban kerja dan tanggung jawab yang diharapkan.'},
+],
+'js-d3':[
+  {c:'JP1',t:'Saya tidak bersedia bekerja di luar kota atau provinsi tempat tinggal saya meskipun gajinya lebih tinggi.'},
+  {c:'JP2',t:'Saya hanya bersedia bekerja dengan sistem WFH atau hybrid, tidak mau full onsite.'},
+  {c:'JP3',t:'Saya menolak bekerja di sektor atau industri yang tidak sesuai dengan minat saya meskipun gajinya lebih besar.'},
+  {c:'JP4',t:'Saya pernah menolak tawaran kerja karena budaya atau lingkungan perusahaan tidak sesuai nilai-nilai saya.'},
+  {c:'JP5',t:'Jenjang karir yang tidak jelas atau tidak ada menjadi alasan saya menolak tawaran pekerjaan.'},
+  {c:'JP6',t:'Jam kerja yang tidak fleksibel menjadi hambatan saya dalam menerima tawaran pekerjaan.'},
+  {c:'JP7',t:'Status kepegawaian yang tidak aman (kontrak jangka pendek/outsource) membuat saya menolak tawaran meski gajinya memadai.'},
+  {c:'JP8',t:'Reputasi dan citra perusahaan (employer branding) sangat memengaruhi keputusan saya melamar atau menerima tawaran.'},
+],
+'js-d4':[
+  {c:'FL1',t:'Saya bersedia menurunkan ekspektasi gaji jika aspek non-finansial pekerjaan sangat baik (lingkungan, pertumbuhan, dll).'},
+  {c:'FL2',t:'Saya bersedia pindah domisili jika tawaran kerja sangat sesuai dengan rencana karir saya.'},
+  {c:'FL3',t:'Saya bersedia bekerja di bidang yang tidak sepenuhnya sesuai latar belakang pendidikan saya.'},
+  {c:'FL4',t:'Saya bersedia memulai dari posisi yang lebih rendah dari yang saya harapkan demi mendapatkan pengalaman.'},
+  {c:'FL5',t:'Saya bersedia mengikuti pelatihan mandiri atas biaya sendiri demi meningkatkan peluang diterima kerja.'},
+  {c:'FL6',t:'Saya memiliki batas kompromi yang jelas: ada persyaratan kerja yang tidak akan saya negosiasikan sama sekali.'},
+],
+'js-e1':[
+  {c:'ED1',t:'Kurikulum di tempat pendidikan saya sangat relevan dengan kebutuhan industri saat ini.'},
+  {c:'ED2',t:'Program magang atau praktik kerja lapangan yang saya jalani memberikan keterampilan yang berguna di dunia kerja.'},
+  {c:'ED3',t:'Gelar pendidikan yang saya miliki memberi nilai tambah nyata dalam proses rekrutmen.'},
+  {c:'ED4',t:'Kampus atau sekolah saya memberikan bimbingan karir yang memadai untuk mempersiapkan saya memasuki dunia kerja.'},
+  {c:'ED5',t:'Kualitas pendidikan yang saya terima sepadan dengan ekspektasi pemberi kerja terhadap lulusan.'},
+  {c:'ED6',t:'Pendidikan vokasi lebih mempersiapkan lulusan untuk pasar kerja dibanding program sarjana akademik.'},
+],
+'js-e2':[
+  {c:'AI6',t:'Saya memiliki pemahaman yang cukup tentang tren dan kebutuhan industri tempat saya ingin bekerja.'},
+  {c:'AI7',t:'Informasi yang saya miliki tentang lowongan dan persyaratan kerja sering tidak akurat atau sudah usang.'},
+  {c:'AI8',t:'Platform pencarian kerja online yang ada saat ini belum menyediakan informasi yang cukup lengkap dan transparan.'},
+  {c:'AI9',t:'Banyak lowongan pekerjaan "hantu" yang diiklankan tetapi posisinya tidak sungguh-sungguh tersedia.'},
+  {c:'AI10',t:'Saya sulit mendapatkan umpan balik konstruktif dari perekrut ketika lamaran saya ditolak.'},
+],
+'js-e3':[
+  {c:'SE1',t:'Saya yakin pada akhirnya akan berhasil mendapatkan pekerjaan yang sesuai dengan kualifikasi saya.'},
+  {c:'SE2',t:'Proses pencarian kerja yang panjang mulai memengaruhi kesehatan mental dan kepercayaan diri saya.'},
+  {c:'SE3',t:'Saya secara aktif membangun jaringan profesional (networking) sebagai strategi utama pencarian kerja.'},
+  {c:'SE4',t:'Saya terbuka untuk mempertimbangkan kewirausahaan atau freelancing jika tidak berhasil mendapat pekerjaan formal.'},
+  {c:'SE5',t:'Kondisi pengangguran yang saya alami bukan akibat kurangnya usaha saya, melainkan karena faktor eksternal.'},
+],
+// EMPLOYER
+'em-b1':[
+  {c:'RD1',t:'Kami mengalami kesulitan signifikan dalam menemukan pelamar yang memenuhi kualifikasi posisi yang kami buka.'},
+  {c:'RD2',t:'Kami sering menerima ratusan lamaran tetapi sangat sedikit yang memenuhi syarat minimum kami.'},
+  {c:'RD3',t:'Kami terpaksa membiarkan posisi kosong dalam waktu lama karena tidak menemukan kandidat yang tepat.'},
+  {c:'RD4',t:'Tingkat pengunduran diri karyawan baru dalam 6 bulan pertama di perusahaan kami cukup tinggi.'},
+  {c:'RD5',t:'Kami terpaksa menurunkan standar rekrutmen agar posisi yang kosong bisa terisi.'},
+  {c:'RD6',t:'Proses rekrutmen kami membutuhkan biaya dan waktu yang jauh lebih besar dari yang semestinya.'},
+  {c:'RD7',t:'Kandidat terbaik yang kami incar sering sudah diambil oleh perusahaan kompetitor sebelum kami sempat membuat penawaran.'},
+],
+'em-b2':[
+  {c:'SM1',t:'Pelamar umumnya tidak memiliki keterampilan teknis spesifik yang kami butuhkan.'},
+  {c:'SM2',t:'Keterampilan digital (data analitik, software, AI tools) pelamar jauh di bawah standar industri saat ini.'},
+  {c:'SM3',t:'Kemampuan bahasa asing, khususnya Inggris aktif, pelamar sangat minim dan menjadi hambatan besar.'},
+  {c:'SM4',t:'Kualitas soft skills (komunikasi, profesionalisme, inisiatif) pelamar umumnya tidak memenuhi ekspektasi kami.'},
+  {c:'SM5',t:'Sertifikasi dan gelar pendidikan pelamar tidak selalu mencerminkan kompetensi aktual yang mereka miliki.'},
+  {c:'SM6',t:'Kurikulum perguruan tinggi di Indonesia belum menghasilkan lulusan yang siap pakai untuk kebutuhan industri.'},
+  {c:'SM7',t:'Kami membutuhkan waktu dan biaya ekstra yang signifikan untuk melatih ulang karyawan baru agar bisa bekerja sesuai standar kami.'},
+  {c:'SM8',t:'Keterampilan yang dibutuhkan di industri kami berkembang lebih cepat daripada kemampuan lulusan baru untuk mengikutinya.'},
+],
+'em-c1':[
+  {c:'EM1',t:'Kebanyakan pelamar fresh graduate tidak memiliki pengalaman kerja yang cukup untuk langsung produktif.'},
+  {c:'EM2',t:'Pengalaman magang yang dicantumkan pelamar sering tidak relevan atau tidak berkualitas memadai.'},
+  {c:'EM3',t:'Kami mensyaratkan pengalaman minimal karena risiko merekrut kandidat tanpa pengalaman terlalu besar bagi operasional kami.'},
+  {c:'EM4',t:'Kandidat dengan pengalaman di bidang lain sulit kami terima meskipun keterampilannya bisa ditransfer.'},
+  {c:'EM5',t:'Kami kesulitan memverifikasi keabsahan dan kualitas pengalaman kerja yang dicantumkan pelamar.'},
+  {c:'EM6',t:'Program magang yang ada saat ini belum menghasilkan calon karyawan yang benar-benar siap kerja.'},
+  {c:'EM7',t:'Kami lebih memilih kandidat berpengalaman meski harus membayar lebih mahal daripada melatih fresh graduate.'},
+],
+'em-c2':[
+  {c:'SA1',t:'Ekspektasi gaji pelamar jauh melebihi anggaran yang kami sediakan untuk posisi yang bersangkutan.'},
+  {c:'SA2',t:'Kami sering kehilangan kandidat terbaik karena tidak bisa memenuhi ekspektasi gaji mereka.'},
+  {c:'SA3',t:'Ekspektasi gaji pelamar yang tidak realistis menjadi hambatan utama dalam proses rekrutmen kami.'},
+  {c:'SA4',t:'Informasi gaji yang beredar di internet dan media sosial membuat ekspektasi kandidat menjadi tidak realistis.'},
+  {c:'SA5',t:'Kami terbuka menegosiasikan gaji di atas kisaran normal jika kandidat memiliki kompetensi langka yang sangat kami butuhkan.'},
+  {c:'SA6',t:'Kesenjangan antara ekspektasi gaji pelamar dan kemampuan finansial perusahaan kami semakin melebar dari tahun ke tahun.'},
+],
+'em-c3':[
+  {c:'PR1',t:'Banyak pelamar menolak tawaran kami karena tidak ada opsi kerja WFH atau hybrid.'},
+  {c:'PR2',t:'Kandidat terbaik sering memilih perusahaan lain karena kami tidak menawarkan fleksibilitas jam kerja.'},
+  {c:'PR3',t:'Preferensi kandidat untuk bekerja dekat dari rumah sangat membatasi jumlah kandidat yang bisa kami rekrut.'},
+  {c:'PR4',t:'Perbedaan ekspektasi budaya kerja (hierarki vs flat, formal vs santai) sering menghambat proses rekrutmen.'},
+  {c:'PR5',t:'Kandidat generasi muda saat ini memiliki ekspektasi tentang kondisi kerja yang sulit dipenuhi perusahaan kami.'},
+  {c:'PR6',t:'Status pekerjaan kontrak atau outsource yang kami tawarkan menjadi alasan utama kandidat menolak tawaran kami.'},
+  {c:'PR7',t:'Kami kehilangan kandidat berkualitas karena mereka lebih memilih bekerja di startup atau perusahaan teknologi.'},
+],
+'em-d1':[
+  {c:'FK1',t:'Kami fleksibel menerima pelamar yang belum memenuhi semua persyaratan formal jika mereka menunjukkan potensi tinggi.'},
+  {c:'FK2',t:'Kami menerima pengalaman magang, proyek akademik, atau freelance sebagai pengganti pengalaman kerja formal.'},
+  {c:'FK3',t:'Kami mempertimbangkan kandidat dari latar belakang pendidikan berbeda dari yang kami persyaratkan jika kompetensinya relevan.'},
+  {c:'FK4',t:'Kami membuka opsi kerja hybrid atau remote untuk memperluas akses ke kandidat berkualitas dari berbagai daerah.'},
+  {c:'FK5',t:'Proses rekrutmen kami sudah berbasis kompetensi (competency-based hiring), bukan sekadar formalitas ijazah atau institusi.'},
+  {c:'FK6',t:'Kami bersedia menerapkan sistem magang atau apprenticeship berbayar untuk menyaring dan mengembangkan talenta muda.'},
+  {c:'FK7',t:'Persyaratan formal rekrutmen di perusahaan kami perlu diperbarui agar lebih relevan dengan kebutuhan aktual pekerjaan.'},
+],
+'em-d2':[
+  {c:'TR1',t:'Kami memiliki program pelatihan terstruktur untuk meningkatkan kompetensi karyawan baru agar mencapai standar kerja kami.'},
+  {c:'TR2',t:'Kami bersedia berinvestasi dalam pelatihan karyawan baru meskipun mereka belum sepenuhnya memenuhi kualifikasi awal.'},
+  {c:'TR3',t:'Kami berkolaborasi aktif dengan perguruan tinggi, SMK, atau lembaga vokasi untuk menyiapkan calon karyawan.'},
+  {c:'TR4',t:'Kami menyediakan program mentoring yang membantu karyawan baru beradaptasi dengan standar dan budaya kerja kami.'},
+  {c:'TR5',t:'Perusahaan kami menganggap biaya pelatihan dan pengembangan karyawan sebagai investasi jangka panjang, bukan beban.'},
+  {c:'TR6',t:'Kami aktif berpartisipasi dalam program magang atau industrial attachment untuk membentuk talenta masa depan.'},
+],
+'em-d3':[
+  {c:'MK1',t:'Secara keseluruhan, kualitas tenaga kerja lulusan Indonesia sudah memadai untuk kebutuhan industri saat ini.'},
+  {c:'MK2',t:'Pemerintah perlu secara serius meningkatkan kualitas dan relevansi pendidikan vokasi dengan kebutuhan industri.'},
+  {c:'MK3',t:'Program Kartu Prakerja dan pelatihan pemerintah lainnya sudah efektif meningkatkan kualitas tenaga kerja.'},
+  {c:'MK4',t:'Pengangguran di Indonesia lebih banyak disebabkan oleh ketidakcocokan (mismatch) daripada kurangnya lapangan kerja.'},
+  {c:'MK5',t:'Pemberi kerja perlu lebih fleksibel dalam kriteria rekrutmen untuk membantu mengurangi angka pengangguran.'},
+  {c:'MK6',t:'Platform pertukaran informasi antara pemberi kerja dan pencari kerja di Indonesia masih sangat kurang memadai.'},
+  {c:'MK7',t:'Kondisi pasar tenaga kerja Indonesia akan semakin memburuk dalam 5 tahun ke depan jika tidak ada reformasi menyeluruh.'},
+],
+};
+
+// ─── STATE ────────────────────────────────────────────────────
+let role = null, t0 = null;
+
+// ─── RENDER LIKERT ────────────────────────────────────────────
+function renderLK(id, items){
+  const el = document.getElementById('lt-'+id);
+  if(!el) return;
+  let h = `<table class="ltbl"><thead><tr>
+    <th style="text-align:left;padding-left:14px;width:56%">Pernyataan</th>
+    <th>1<br><small style="font-weight:400;font-size:10px">STS</small></th>
+    <th>2<br><small style="font-weight:400;font-size:10px">TS</small></th>
+    <th>3<br><small style="font-weight:400;font-size:10px">N</small></th>
+    <th>4<br><small style="font-weight:400;font-size:10px">S</small></th>
+    <th>5<br><small style="font-weight:400;font-size:10px">SS</small></th>
+  </tr></thead><tbody>`;
+  items.forEach((item,i)=>{
+    h+=`<tr id="tr-${id}-${i}"><td><span class="ic">${item.c}</span>${item.t}</td>`;
+    for(let v=1;v<=5;v++) h+=`<td><input type="radio" name="lk_${id}_${i}" value="${v}" onchange="markRow('${id}',${i})"></td>`;
+    h+='</tr>';
+  });
+  h+='</tbody></table>';
+  h+=`<div class="sc-hdr"><span>STS=Sangat Tidak Setuju</span><span>TS=Tidak Setuju</span><span>N=Netral</span><span>S=Setuju</span><span>SS=Sangat Setuju</span></div>`;
+  el.innerHTML = h;
+}
+function markRow(id,i){
+  const r = document.getElementById(`tr-${id}-${i}`);
+  if(r) r.classList.add('answered');
+}
+
+// ─── STEPPER ──────────────────────────────────────────────────
+const JS_STEPS = ['Demografis','Lapangan Kerja','Keterampilan','Gaji & Preferensi','Persepsi & Penutup'];
+const EM_STEPS = ['Profil Perusahaan','Rekrutmen & Skill','Pengalaman & Gaji','Fleksibilitas & Penutup'];
+
+function drawStepper(containerId, steps, current){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  let h='<div class="stepper">';
+  steps.forEach((lbl,i)=>{
+    const n=i+1, cls = n<current?'done':n===current?'active':'';
+    h+=`<div class="sw"><div class="sdot ${cls}">${n<current?'✓':n}</div><div class="slabel">${lbl}</div></div>`;
+    if(i<steps.length-1) h+=`<div class="sline${n<current?' done':''}"></div>`;
+  });
+  h+='</div>';
+  el.innerHTML=h;
+}
+function jsStepper(n){ drawStepper('js-step-'+n,JS_STEPS,n); document.getElementById('js-si-'+n).textContent=`Langkah ${n} dari ${JS_STEPS.length}`; }
+function emStepper(n){ drawStepper('em-step-'+n,EM_STEPS,n); document.getElementById('em-si-'+n).textContent=`Langkah ${n} dari ${EM_STEPS.length}`; }
+
+// ─── PROGRESS BAR ─────────────────────────────────────────────
+function progress(pct){ document.getElementById('pb').style.width=pct+'%'; }
+
+// ─── SHOW PAGE ────────────────────────────────────────────────
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ─── TOAST ────────────────────────────────────────────────────
+function toast(msg, ok=false){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast'+(ok?' ok':'');
+  setTimeout(()=>t.classList.add('show'),10);
+  setTimeout(()=>t.classList.remove('show'),4000);
+}
+
+// ─── OVERLAY ──────────────────────────────────────────────────
+function showOverlay(v){ document.getElementById('overlay').classList.toggle('show',v); }
+
+// ─── ROLE SELECTION ───────────────────────────────────────────
+function pickRole(r){
+  role=r;
+  document.querySelectorAll('.rc').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('rc-'+r).classList.add('sel');
+  document.getElementById('btn-role-next').disabled=false;
+}
+function goRole(){ showPage('p-role'); progress(0); }
+
+function startSurvey(){
+  if(!role) return;
+  t0=new Date();
+  if(role==='js'){
+    initJS(); showPage('js-1'); jsStepper(1); progress(10);
+  } else {
+    initEM(); showPage('em-1'); emStepper(1); progress(10);
+  }
+}
+
+// ─── INIT RENDERS ─────────────────────────────────────────────
+function initJS(){
+  ['js-b1','js-b2','js-b3','js-c1','js-c2','js-c3',
+   'js-d2','js-d3','js-d4','js-e1','js-e2','js-e3'].forEach(k=>renderLK(k,LK[k]));
+  attachCheckHighlight();
+}
+function initEM(){
+  ['em-b1','em-b2','em-c1','em-c2','em-c3',
+   'em-d1','em-d2','em-d3'].forEach(k=>renderLK(k,LK[k]));
+  attachCheckHighlight();
+}
+
+// ─── CHECK HIGHLIGHT ──────────────────────────────────────────
+function attachCheckHighlight(){
+  document.addEventListener('change',e=>{
+    if(e.target.type==='checkbox'){
+      const item=e.target.closest('.ci-item,.ri-item');
+      if(item) item.classList.toggle('sel',e.target.checked);
+    }
+    if(e.target.type==='radio' && !e.target.name.startsWith('lk_')){
+      document.querySelectorAll(`input[name="${e.target.name}"]`).forEach(r=>{
+        const item=r.closest('.ri-item');
+        if(item) item.classList.toggle('sel',r.checked);
+      });
+    }
+  },{once:false});
+}
+
+// ─── VALIDATION ───────────────────────────────────────────────
+function req(id){
+  const el=document.getElementById(id);
+  if(!el) return true;
+  const v=el.value.trim();
+  if(!v||v===''){el.classList.add('err');return false;}
+  el.classList.remove('err');return true;
+}
+function reqRadio(name){
+  return !!document.querySelector(`input[name="${name}"]:checked`);
+}
+function reqLikert(prefix, count){
+  let ok=true;
+  for(let i=0;i<count;i++){
+    if(!document.querySelector(`input[name="lk_${prefix}_${i}"]:checked`)){ok=false;}
+  }
+  return ok;
+}
+function validate(checks){
+  let ok=true;
+  checks.forEach(c=>{if(!c) ok=false;});
+  return ok;
+}
+
+// ─── JS NAVIGATION ────────────────────────────────────────────
+function jsNext(step){
+  let ok=true;
+  if(step===1){
+    ok=validate([req('js-age'),req('js-gender'),req('js-edu'),req('js-major'),req('js-prov'),req('js-area'),req('js-status'),req('js-dur')]);
+  }
+  if(step===2){
+    ok=validate([
+      reqLikert('js-b1',LK['js-b1'].length),
+      reqLikert('js-b2',LK['js-b2'].length),
+      reqLikert('js-b3',LK['js-b3'].length),
+      req('js-apps'),req('js-platform')
+    ]);
+    if(!reqLikert('js-b1',LK['js-b1'].length)||!reqLikert('js-b2',LK['js-b2'].length)||!reqLikert('js-b3',LK['js-b3'].length)){
+      ok=false;
+    }
+  }
+  if(step===3){
+    ok=validate([
+      reqLikert('js-c1',LK['js-c1'].length),
+      reqLikert('js-c2',LK['js-c2'].length),
+      reqLikert('js-c3',LK['js-c3'].length)
+    ]);
+  }
+  if(step===4){
+    ok=validate([
+      req('js-sal-exp'),req('js-sal-off'),
+      reqLikert('js-d2',LK['js-d2'].length),
+      reqLikert('js-d3',LK['js-d3'].length),
+      reqLikert('js-d4',LK['js-d4'].length),
+      req('js-worksys'),req('js-reloc')
+    ]);
+  }
+  if(!ok){toast('⚠ Mohon lengkapi semua pertanyaan yang wajib diisi sebelum melanjutkan.');return;}
+  const pcts=[0,10,30,52,72,90];
+  showPage('js-'+(step+1)); jsStepper(step+1); progress(pcts[step]);
+}
+function jsBack(step){
+  const pcts=[0,10,30,52,72,90];
+  if(step===2){showPage('p-role');progress(0);}
+  else{showPage('js-'+(step-1));jsStepper(step-1);progress(pcts[step-2]);}
+}
+
+// ─── EM NAVIGATION ────────────────────────────────────────────
+function emNext(step){
+  let ok=true;
+  if(step===1){
+    ok=validate([req('em-sector'),req('em-own'),req('em-size'),req('em-prov'),req('em-pos'),req('em-freq'),req('em-filltime'),req('em-sal-entry'),req('em-exp-req'),reqRadio('em-onboard')]);
+    if(!reqRadio('em-onboard')) ok=false;
+  }
+  if(step===2){
+    ok=reqLikert('em-b1',LK['em-b1'].length)&&reqLikert('em-b2',LK['em-b2'].length);
+  }
+  if(step===3){
+    ok=reqLikert('em-c1',LK['em-c1'].length)&&reqLikert('em-c2',LK['em-c2'].length)&&reqLikert('em-c3',LK['em-c3'].length);
+  }
+  if(!ok){toast('⚠ Mohon lengkapi semua pertanyaan yang wajib diisi sebelum melanjutkan.');return;}
+  const pcts=[0,10,34,60,85];
+  showPage('em-'+(step+1)); emStepper(step+1); progress(pcts[step]);
+}
+function emBack(step){
+  const pcts=[0,10,34,60,85];
+  if(step===2){showPage('p-role');progress(0);}
+  else{showPage('em-'+(step-1));emStepper(step-1);progress(pcts[step-2]);}
+}
+
+// ─── COLLECT ALL DATA ─────────────────────────────────────────
+function getChecks(name){
+  return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(e=>e.value).join(', ');
+}
+function getLK(prefix,items){
+  const out={};
+  items.forEach((item,i)=>{
+    const sel=document.querySelector(`input[name="lk_${prefix}_${i}"]:checked`);
+    out[item.c]=sel?sel.value:'';
+  });
+  return out;
+}
+function getRadio(name){
+  const s=document.querySelector(`input[name="${name}"]:checked`);
+  return s?s.value:'';
+}
+
+function collectJS(){
+  const d={
+    timestamp: new Date().toLocaleString('id-ID'),
+    peran: 'Pencari Kerja',
+    // A
+    usia: document.getElementById('js-age').value,
+    jenis_kelamin: document.getElementById('js-gender').value,
+    pendidikan_terakhir: document.getElementById('js-edu').value,
+    bidang_studi: document.getElementById('js-major').value,
+    provinsi: document.getElementById('js-prov').value,
+    tipe_wilayah: document.getElementById('js-area').value,
+    status_pencarian: document.getElementById('js-status').value,
+    lama_mencari_kerja: document.getElementById('js-dur').value,
+    pengalaman_kerja_total: document.getElementById('js-exp').value,
+    sumber_penghasilan_saat_ini: document.getElementById('js-income').value,
+    pelatihan_diikuti: getChecks('js-train'),
+    // B
+    jumlah_lamaran_dikirim: document.getElementById('js-apps').value,
+    jumlah_mendapat_respons: document.getElementById('js-resp').value,
+    platform_utama: document.getElementById('js-platform').value,
+    pernah_menolak_tawaran: document.getElementById('js-reject').value,
+    alasan_menolak_tawaran: getChecks('js-rej-reason'),
+    // C
+    keterampilan_ingin_ditingkatkan: getChecks('js-skill-up'),
+    // D
+    ekspektasi_gaji_rupiah: document.getElementById('js-sal-exp').value,
+    gaji_ditawarkan_relatif: document.getElementById('js-sal-off').value,
+    sistem_kerja_diinginkan: document.getElementById('js-worksys').value,
+    kesediaan_relokasi: document.getElementById('js-reloc').value,
+    // E
+    penyebab_pengangguran_menurut_responden: getChecks('js-cause'),
+    komentar: document.getElementById('js-comment').value,
+  };
+  // Likert
+  const lkSections=['js-b1','js-b2','js-b3','js-c1','js-c2','js-c3','js-d2','js-d3','js-d4','js-e1','js-e2','js-e3'];
+  lkSections.forEach(k=>{ Object.assign(d, getLK(k,LK[k])); });
+  return d;
+}
+
+function collectEM(){
+  const d={
+    timestamp: new Date().toLocaleString('id-ID'),
+    peran: 'Pemberi Kerja',
+    // A
+    sektor_industri: document.getElementById('em-sector').value,
+    kepemilikan_perusahaan: document.getElementById('em-own').value,
+    jumlah_karyawan: document.getElementById('em-size').value,
+    provinsi_operasional: document.getElementById('em-prov').value,
+    jabatan_responden: document.getElementById('em-pos').value,
+    posisi_dibuka_saat_ini: document.getElementById('em-openpos').value,
+    frekuensi_rekrutmen: document.getElementById('em-freq').value,
+    waktu_rata_mengisi_lowongan: document.getElementById('em-filltime').value,
+    gaji_ditawarkan_entry_level: document.getElementById('em-sal-entry').value,
+    pengalaman_minimum_disyaratkan: document.getElementById('em-exp-req').value,
+    program_onboarding: getRadio('em-onboard'),
+    keterampilan_sulit_ditemukan: getChecks('em-hard-skill'),
+    penyebab_kesulitan_rekrutmen: getChecks('em-cause'),
+    komentar: document.getElementById('em-comment').value,
+  };
+  const lkSections=['em-b1','em-b2','em-c1','em-c2','em-c3','em-d1','em-d2','em-d3'];
+  lkSections.forEach(k=>{ Object.assign(d, getLK(k,LK[k])); });
+  return d;
+}
+
+// ─── SUBMIT ───────────────────────────────────────────────────
+function doSubmit(data, btnId){
+  // Validate final page likerts
+  let ok = true;
+  if(role==='js'){
+    ok = reqLikert('js-e1',LK['js-e1'].length)&&reqLikert('js-e2',LK['js-e2'].length)&&reqLikert('js-e3',LK['js-e3'].length);
+  } else {
+    ok = reqLikert('em-d1',LK['em-d1'].length)&&reqLikert('em-d2',LK['em-d2'].length)&&reqLikert('em-d3',LK['em-d3'].length);
+  }
+  if(!ok){toast('⚠ Mohon lengkapi semua pernyataan Likert sebelum mengirim.');return;}
+
+  const btn=document.getElementById(btnId);
+  btn.disabled=true; btn.textContent='Mengirim...';
+  showOverlay(true);
+
+  // Kirim sebagai raw JSON — paling andal dibaca oleh Apps Script via postData.contents
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'text/plain;charset=utf-8'},
+    body: JSON.stringify(data)
+  })
+  .then(() => {
+    showOverlay(false);
+    showSuccess(data);
+  })
+  .catch(err => {
+    console.error('Fetch error:', err);
+    showOverlay(false);
+    showSuccess(data);
+  });
+}
+
+function showSuccess(data){
+  const end=new Date();
+  const diffMs=end-t0;
+  const m=Math.floor(diffMs/60000), s=Math.floor((diffMs%60000)/1000);
+  document.getElementById('ty-role').textContent = data.peran;
+  document.getElementById('ty-dur').textContent = `${m} menit ${s} detik`;
+  document.getElementById('ty-date').textContent = end.toLocaleString('id-ID',{weekday:'long',year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'});
+  showPage('p-thanks'); progress(100);
+  toast('✓ Data berhasil dikirim ke basis data penelitian!', true);
+}
+
+function submitJS(){
+  const data=collectJS();
+  doSubmit(data,'js-submit-btn');
+}
+function submitEM(){
+  const data=collectEM();
+  doSubmit(data,'em-submit-btn');
+}
+
+// ─── ERR CLEAR ON INPUT ───────────────────────────────────────
+document.addEventListener('input',e=>{if(e.target.classList.contains('err'))e.target.classList.remove('err');});
+document.addEventListener('change',e=>{if(e.target.classList.contains('err'))e.target.classList.remove('err');});
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     APPS SCRIPT (BACKEND) — DEPLOY DI script.google.com
+     Buat project baru, paste kode di bawah, deploy sebagai Web App
+
+function doPost(e) {
+  const ss = SpreadsheetApp.openById('GANTI_DENGAN_SPREADSHEET_ID_ANDA');
+  const data = JSON.parse(e.postData.contents);
+
+  const sheetName = data.peran === 'Pencari Kerja' ? 'Pencari Kerja' : 'Pemberi Kerja';
+  let sheet = ss.getSheetByName(sheetName);
+
+  if (!sheet) {
+    sheet = ss.insertSheet(sheetName);
+  }
+
+  const keys = Object.keys(data);
+
+  // Tulis header jika sheet kosong
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(keys);
+    sheet.getRange(1, 1, 1, keys.length).setFontWeight('bold').setBackground('#1a3a5c').setFontColor('#ffffff');
+    sheet.setFrozenRows(1);
+  }
+
+  // Tulis data
+  const headerRow = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  const row = headerRow.map(h => data[h] !== undefined ? data[h] : '');
+  sheet.appendRow(row);
+
+  return ContentService.createTextOutput(JSON.stringify({status:'ok'})).setMimeType(ContentService.MimeType.JSON);
+}
+
+function doGet(e) {
+  return ContentService.createTextOutput(JSON.stringify({status:'alive'})).setMimeType(ContentService.MimeType.JSON);
+}
+═══════════════════════════════════════════════════════════════ -->
+
+</body>
+</html>
