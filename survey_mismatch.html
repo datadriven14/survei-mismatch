@@ -651,7 +651,11 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:linear-gradient(135de
       <p>Informasi tentang perusahaan Anda untuk keperluan klasifikasi sampel penelitian.</p>
     </div>
   </div>
-
+<div class="fg">
+      <label>Nomor Whatsapp <span class="req">*</span></label>
+      <input type="number" id="em-number" placeholder="Contoh: 081234567891">
+    </div>
+    <div class="fg">
   <div class="fr">
     <div class="fg">
       <label>Sektor / Industri Perusahaan <span class="req">*</span></label>
@@ -1329,7 +1333,7 @@ function jsBack(step){
 function emNext(step){
   let ok=true;
   if(step===1){
-    ok=validate([req('em-sector'),req('em-own'),req('em-size'),req('em-prov'),req('em-pos'),req('em-freq'),req('em-filltime'),req('em-sal-entry'),req('em-exp-req'),reqRadio('em-onboard')]);
+    ok=validate([req('em-number'),req('em-sector'),req('em-own'),req('em-size'),req('em-prov'),req('em-pos'),req('em-freq'),req('em-filltime'),req('em-sal-entry'),req('em-exp-req'),reqRadio('em-onboard')]);
     if(!reqRadio('em-onboard')) ok=false;
   }
   if(step===2){
@@ -1410,6 +1414,7 @@ function collectEM(){
     timestamp: new Date().toLocaleString('id-ID'),
     peran: 'Pemberi Kerja',
     // A
+    nomor_whatsapp: document.getElementById('em-number').value,
     sektor_industri: document.getElementById('em-sector').value,
     kepemilikan_perusahaan: document.getElementById('em-own').value,
     jumlah_karyawan: document.getElementById('em-size').value,
